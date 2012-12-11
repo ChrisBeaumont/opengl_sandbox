@@ -19,6 +19,7 @@ QUIT_VALUE = 99
 
 
 class fps(object):
+    """Print calls per second, once per second"""
     def __init__(self, func):
         self.ctr = 0
         self.t0 = time()
@@ -39,8 +40,12 @@ def display():
 
     glClear(GL_COLOR_BUFFER_BIT)
 
+    #pick a random poitn color
+    glColor3f(np.random.random(), np.random.random(), np.random.random())
+
+    #matrix mode is GL_MODELVIEW
     glLoadIdentity()
-    glTranslatef(0., 0., -4.)
+    gluLookAt(0, 0, 4, 0, 0, 0, 0, 1, 0)
 
     glCallList(LIST_ID)
 
@@ -55,7 +60,8 @@ def reshape(w, h):
 
     glMatrixMode(GL_PROJECTION)
     glLoadIdentity()
-    gluPerspective(40., float(w) / float(h), 1.0, 10.0)
+
+    glOrtho(-3, 3, -3, 3, -4, 4)
 
     glMatrixMode(GL_MODELVIEW)
 
