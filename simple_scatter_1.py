@@ -13,31 +13,16 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
 import numpy as np
+from fps import fps
 
 LIST_ID = 0
 QUIT_VALUE = 99
-
-
-class fps(object):
-    """Print calls per second, once per second"""
-    def __init__(self, func):
-        self.ctr = 0
-        self.t0 = time()
-        self.func = func
-
-    def __call__(self, *args, **kwargs):
-        self.ctr += 1
-        t = time()
-        if t - self.t0 > 1:
-            print "fps: %0.2f" % (self.ctr / (t - self.t0))
-            self.ctr = 0
-            self.t0 = t
-        return self.func(*args, **kwargs)
-
+data = 0
 
 @fps
 def display():
 
+    #glVertexPointerf(data)
     glClear(GL_COLOR_BUFFER_BIT)
 
     #pick a random poitn color
@@ -75,8 +60,10 @@ def mainMenuCB(value):
 
 def init(sz):
     global LIST_ID
+    global data
 
     glDisable(GL_DITHER)
+
 
     data = np.random.normal(0, .5, (sz, 2))
 
@@ -84,10 +71,9 @@ def init(sz):
     glVertexPointerf(data)
 
     LIST_ID = glGenLists(1)
+
     glNewList(LIST_ID, GL_COMPILE)
-
     glDrawArrays(GL_POINTS, 0, sz)
-
     glEndList()
 
     assert glGetError() == GL_NO_ERROR

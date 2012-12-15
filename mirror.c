@@ -193,6 +193,9 @@ int main(int argc, char** argv)
   glutInitWindowPosition (0,0);
   glutCreateWindow ("Two pass mirror");
 
+  printf("GLSL Version: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+  printf("GL Version: %s\n", glGetString(GL_VERSION));
+
   init ();
 
   glutMainLoop ();
